@@ -1,24 +1,15 @@
-"""first_rest_project URL Configuration
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/3.0/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
 from django.contrib import admin
 from django.urls import path
 
-from food.views import get_data, ApiFoodList
+from food.views import MainView, food_boxes_list, recipients_list, food_boxes_detail, recipient_detail
 
 urlpatterns = [
-    path('food_boxes/', ApiFoodList.as_view()),
+    path('', MainView.as_view(), name='home'),
+    path('product-sets/', food_boxes_list, name='products_list'),
+    path('product-sets/?min_price', food_boxes_list, name='products_list_min_price'),
+    path('product-sets/?min_weight', food_boxes_list, name='products_list_min_weight'),
+    path('product-sets/<pk>/', food_boxes_detail, name='product_detail'),
+    path('recipients/', recipients_list, name='recipients_list'),
+    path('recipients/<pk>/', recipient_detail, name='recipient-detail'),
     path('admin/', admin.site.urls),
 ]
